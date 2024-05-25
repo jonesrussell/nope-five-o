@@ -1,18 +1,14 @@
+// services/note_service.go
+
 package services
 
 import (
 	"database/sql"
 	"log"
 
+	"github.com/jonesrussell/nope-five-o/models"
 	_ "github.com/mattn/go-sqlite3"
 )
-
-// Note represents a note entity.
-type Note struct {
-	ID    int64
-	Title string
-	Body  string
-}
 
 // NoteService manages note entities.
 type NoteService struct {
@@ -45,16 +41,16 @@ func (s *NoteService) AddNote(title, body string) error {
 }
 
 // GetAllNotes retrieves all notes from the database.
-func (s *NoteService) GetAllNotes() ([]*Note, error) {
+func (s *NoteService) GetAllNotes() ([]*models.Note, error) {
 	rows, err := s.db.Query("SELECT id, title, body FROM notes")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	var notes []*Note
+	var notes []*models.Note
 	for rows.Next() {
-		note := &Note{}
+		note := &models.Note{}
 		err := rows.Scan(&note.ID, &note.Title, &note.Body)
 		if err != nil {
 			return nil, err
