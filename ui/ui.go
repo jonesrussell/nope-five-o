@@ -65,6 +65,22 @@ func ViewNotes(service *services.NoteService) {
 }
 
 func DeleteNote(service *services.NoteService) {
+	notes, err := service.GetAllNotes()
+	if err != nil {
+		fmt.Printf("Error retrieving notes: %v\n", err)
+		return
+	}
+
+	if len(notes) == 0 {
+		fmt.Println("No notes available to delete.")
+		return
+	}
+
+	fmt.Println("Select the ID of the note you want to delete:")
+	for _, note := range notes {
+		fmt.Printf("ID: %d, Title: %s\n", note.ID, note.Title)
+	}
+
 	fmt.Print("Enter note ID to delete: ")
 	idStr, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 	idStr = strings.TrimSpace(idStr)
