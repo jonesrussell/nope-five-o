@@ -2,4 +2,4 @@ module github.com/jonesrussell/nope-five-o
 
 go 1.22.3
 
-require github.com/mattn/go-sqlite3 v1.14.22
+require github.com/xeodou/go-sqlcipher v0.0.0-20200727080346-d681773ef093

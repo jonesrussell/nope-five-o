@@ -7,7 +7,7 @@ import (
 	"log"
 
 	"github.com/jonesrussell/nope-five-o/models"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/xeodou/go-sqlcipher"
 )
 
 // NoteService manages note entities.
@@ -17,7 +17,7 @@ type NoteService struct {
 
 // NewNoteService initializes a new NoteService with an encrypted SQLite database.
 func NewNoteService(dbPath string) (*NoteService, error) {
-	db, err := sql.Open("sqlite3", dbPath+"?password=yourpassword&encryption=on")
+	db, err := sql.Open("sqlite3", dbPath+"?_key=yourpassword")
 	if err != nil {
 		return nil, err
 	}
