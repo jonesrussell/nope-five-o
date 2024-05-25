@@ -8,10 +8,12 @@ import (
 )
 
 func main() {
-	dbPath := "./nope.sqlite"
+	dbPath := "./nope.db"
+
 	service, err := services.NewNoteService(dbPath)
 	if err != nil {
 		log.Fatalf("Failed to create note service: %v", err)
 	}
+
 	ui.StartUI(service)
 }

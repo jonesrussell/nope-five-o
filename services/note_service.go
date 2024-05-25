@@ -4,6 +4,7 @@ package services
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/jonesrussell/nope-five-o/models"
@@ -17,9 +18,15 @@ type NoteService struct {
 
 // NewNoteService initializes a new NoteService with an encrypted SQLite database.
 func NewNoteService(dbPath string) (*NoteService, error) {
-	db, err := sql.Open("sqlite3", dbPath+"?_key=yourpassword")
+	db, err := sql.Open("sqlite3", dbPath+"?_key=123456")
 	if err != nil {
 		return nil, err
+	}
+
+	p := "PRAGMA key = '123456';"
+	_, err = db.Exec(p)
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS notes (
