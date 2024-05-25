@@ -32,3 +32,4 @@ page-prowler
 go-database/
 
 *.db
+nope.sqlite
